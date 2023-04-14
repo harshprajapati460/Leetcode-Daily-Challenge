@@ -1,113 +1,35 @@
-//METHOD - 1 USE TWO STACK OR PAIR STACK TIME COMPLEXITY O(N) && SPACE COMPLEXITY S(2N)
-
-// TWO STACK
+//TIME COMPLEXITY O(N.M) 
 class Solution {
-  public:
-    int finLength(int N, vector<int> &color, vector<int> &radius) {
-        stack<int> c;
-        stack<int> r;
-        for(int i = 0 ; i < N ; i++){
-            if(!c.empty() && color[i] == c.top() && radius[i] == r.top()){
-                c.pop();
-                r.pop();
-            }
-            else {
-                c.push(color[i]);
-                r.push(radius[i]);
-            }
-        }
-        return c.size();
-    }
-};
-//PAIR STACK
-// USE PAIR CLASS
-class Pair{
-    
-    int key;
-    int value;
-    public Pair(int key,int value){
-        this.key = key;
-        this.value = value;
-    }
-    
-}
-
-class Solution {
-    public static int finLength(int N, int[] color, int[] radius) {
-        // code here
-        Stack<Pair> s = new Stack<>();
-        for(int i = 0 ; i < N ; i++){
-            
-            if(!s.empty() && color[i] == s.peek().key && radius[i] == s.peek().value){
-                s.pop();
-            }
-            else {
-                Pair p = new Pair(color[i],radius[i]);
-                s.add(p);
-            }
-        }
-        return s.size();
-    }
-}
-  
-class Solution {
-  public:
-    int finLength(int N, vector<int> &color, vector<int> &radius) {
-        stack<pair<int,int>>s;
+public:
+     int util(int x,int y,string a,string b,vector<vector<int>>&dp){
         
-        for(int i = 0 ; i < N ; i++){
-            if(!s.empty() && color[i] == s.top().first && radius[i] == s.top().second){
-                s.pop();
-            }
-            else {
-                s.push({color[i],radius[i]});
+        for(int i = 1; i <= x; i++){
+            for(int j = 1; j <= y; j++){
+                if(a[i-1] == b[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+                else {
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+                }
             }
         }
-        return s.size();
+        return dp[x][y];
     }
-};
+    int longestPalindromeSubseq(string s1) {
+        int x = s1.length();
 
-// Method- 2 Space somplexity S(N)
-// Only push index i No need to use two stack or pair stack
+        vector<vector<int>> dp(x+1, vector<int>(x+1,0));
 
-class Solution {
-  public:
-    int finLength(int N, vector<int> &color, vector<int> &radius) {
-        
-        stack<int> s;
-        for(int i = 0 ; i < N ; i++){
-            if(!s.empty() && color[i] == color[s.top()] && radius[i] == radius[s.top()]){
-                s.pop();
-            }
-            else {
-                s.push(i);
+        for(int i = 1; i<=x; i++){
+            for(int j = 1; j <= x; j++){
+                dp[i][j] = -1;
+
             }
         }
-        return s.size();
-    }
-};
+       
+        string s2 = s1;
+        reverse(s2.begin(),s2.end());
+        return util(x,x,s1,s2,dp);
 
-// METHOD - 3 MOST OPTIMIZED TIME COMPLEXITY O(N) and SPACE COMPLEXITY S(1)
-// USE TWO INDEXES
-class Solution {
-  public:
-    int finLength(int N, vector<int> &color, vector<int> &radius) {
-        
-        int i = 0,j = 1;
-        
-        while(j<N){
-    
-            while(i>=0 && j<N && color[i]==color[j] && radius[i]==radius[j]){
-                j++;
-                i--;
-            }
-            if(j<N){
-                i++;
-                color[i]=color[j];
-                radius[i]=radius[j];
-                j++;
-            }
-        }
-        return i+1;
     }
 };
