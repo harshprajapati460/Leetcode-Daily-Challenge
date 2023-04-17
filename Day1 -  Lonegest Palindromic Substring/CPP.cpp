@@ -1,4 +1,7 @@
-//TIME COMPLEXITY O(N.M) 
+//TIME COMPLEXITY O(N.M)
+#include<bits/stdc++.h>
+using namespace std;
+    
 class Solution {
 public:
      int util(int x,int y,string a,string b,vector<vector<int>>&dp){
@@ -33,3 +36,7 @@ public:
 
     }
 };
+int main(){
+  Solution obj;
+  cout<<obj.longestPalindromeSubseq("abababb")<<endl;
+}
