@@ -5,6 +5,7 @@ using namespace std;
 // O(N) + IN EVERY STEP EITHER A STONE IS DESTROYED OR BOTH STONE DESTROYED SO CLOSE TO O(N)
 // OVERALL TIME COMPLEXITY O(N)
 // S(N) USING PRIORITY QUEUE OF SIZE N
+// PROBLEM LINK https://leetcode.com/problems/last-stone-weight/description/
 class Solution {
 public:    
    int lastStoneWeight(vector<int>& stones) {
